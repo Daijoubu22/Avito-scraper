@@ -1,0 +1,22 @@
+{
+  "name": "avito-scraper",
+  "version": "1.0.0",
+  "description": "Scraper for avito.ru",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daijoubu22/Avito-scraper.git"
+  },
+  "author": "alextrio.2224@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daijoubu22/Avito-scraper/issues"
+  },
+  "homepage": "https://github.com/Daijoubu22/Avito-scraper#readme",
+  "dependencies": {
+    "puppeteer": "^13.5.2"
+  }
+}
