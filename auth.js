@@ -15,7 +15,7 @@ async function auth() {
   try {
     const cookies = await page.cookies();
     await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2));
-    console.log('Logged in successfully!');
+    console.log('Logged in successfully, now you can start scraping.');
   }
   catch (err) {
     console.log(err);

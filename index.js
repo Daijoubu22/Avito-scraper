@@ -49,13 +49,18 @@ const getLinks = async (page, url) => {
   });
   let i = 1;
   do {
-    const linksPerPage = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('a.iva-item-title-py3i_')).map(link => link.href); 
-    });
-    links.push(...linksPerPage);
+    try {
+      const linksPerPage = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll('a.iva-item-title-py3i_')).map(link => link.href); 
+      });
+      links.push(...linksPerPage);
+    }
+    catch (err) {
+      console.log(err);
+    }
     console.log(`Page: [${i}] / [${pagesNumber}]`);
     if (i++ >= pagesNumber) break;
-    await randDelay(100, 200);
+    await randDelay(2000, 3000);
     await page.goto(`${url}?p=${i}`);
   } while (true);
   console.log('Links are ready!\n');
@@ -87,10 +92,10 @@ const parsePage = async (page, url, isLoggedIn) => {
   return advert;
 }
 
-async function scraper(url) {
+async function scrape(url) {
   puppeteerExtra.use(pluginStealth());
   const browser = await puppeteerExtra.launch({
-    headless: false,
+    headless: true,
   });
   let page = (await browser.pages())[0];
   const cookiesString = await fs.readFile('./cookies.json');
@@ -105,10 +110,10 @@ async function scraper(url) {
   let parsedCount = 0;
   const adverts = [];
 
-  await randDelay(100, 200);
   await page.close();
   page = await browser.newPage();
   await page.emulate(iPhone);
+  await page.setDefaultTimeout(10000); 
 
   for (let i = 0; i < advertsAmount; i++) {
     try {
@@ -118,7 +123,7 @@ async function scraper(url) {
       parsedCount++;
       console.log(advert);
       console.log(`[${i + 1}] / [${advertsAmount}]`);
-      if (isLoggedIn) await randDelay(1000, 2000);
+      if (isLoggedIn) await randDelay(2000, 3000);
       else await randDelay(3000, 4000);
     }
     catch (err) {
@@ -130,4 +135,4 @@ async function scraper(url) {
   browser.close();
 }
 
-scraper('https://avito.ru/sankt-peterburg/koshki/poroda-meyn-kun-ASgBAgICAUSoA5IV');
+scrape('https://avito.ru/sankt-peterburg/koshki/poroda-meyn-kun-ASgBAgICAUSoA5IV');
