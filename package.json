@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Daijoubu22/Avito-scraper#readme",
   "dependencies": {
+    "@types/puppeteer": "^5.4.5",
     "puppeteer": "^13.5.2",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0"
